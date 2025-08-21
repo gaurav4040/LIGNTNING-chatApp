@@ -9,7 +9,7 @@ import { create } from 'zustand'
 const BASE_URL =
   typeof process !== "undefined" && process.env && process.env.NODE_ENV === "development"
     ? "http://localhost:5170"
-    : `${process.env.BASE_URL}/`;
+    : `${process.env.SERVER_URL}/`;
 
 interface userData{
     fullName:string,
