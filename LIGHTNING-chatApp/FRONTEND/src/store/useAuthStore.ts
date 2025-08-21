@@ -84,7 +84,7 @@ interface profileData{
     signOut:async ()=>{
 
         try {
-            await axiosInstance.post("auth/signout");
+            await axiosInstance.post("/auth/signout");
             set({authUser:null});
             toast.success("signed Out successfully")
             get().disconnectSocket();

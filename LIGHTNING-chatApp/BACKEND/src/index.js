@@ -9,7 +9,7 @@ import cors from 'cors';
 import { app,server } from './lib/socket.js';
 
 dotenv.config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT||3000;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -30,3 +30,6 @@ server.listen(PORT,()=>{
     console.log(`server running on ${PORT}`);
     connectDB()
 })
+
+
+  
