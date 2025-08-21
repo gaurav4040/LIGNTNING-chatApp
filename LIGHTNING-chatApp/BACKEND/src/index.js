@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './lib/DB.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { app,server } from './lib/socket.js';
+import { app } from './lib/socket.js';
 
 dotenv.config();
 const PORT = process.env.PORT||3000;
@@ -14,7 +14,7 @@ const PORT = process.env.PORT||3000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"http://ligntning-app.vercel.app",
     credentials:true
 }));
 
@@ -26,10 +26,9 @@ app.use("/api", (req, res) => {
     res.status(404).json({ message: "Page not found" });
   });
 
-server.listen(PORT,()=>{
-    console.log(`server running on ${PORT}`);
+
     connectDB()
-})
+
 
 
   
