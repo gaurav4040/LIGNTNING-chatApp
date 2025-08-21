@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Footer} from "../componentsUI/ui/Footer";
 import {Routes,Route, Navigate } from "react-router-dom";
 import { SplineSceneBasic } from "../componentsUI/ui/hero";
-import { Socket } from "socket.io-client";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useEffect } from "react";
 import {Toaster} from 'react-hot-toast';
@@ -9,7 +9,7 @@ import {Toaster} from 'react-hot-toast';
 import Header from "../componentsUI/ui/Header";
 import HomePage from "../pages/homePage";
 import ProfilePage from "../pages/profilePage";
-import Signin from "../pages/SignIn";
+import Signin from "../pages/signin";
 import Signup from "../pages/signup";
 import NotFoundPage from "@/pages/pageNotFound";
 import Loader from "@/componentsUI/ui/Loader";
@@ -18,7 +18,7 @@ import Loader from "@/componentsUI/ui/Loader";
 
 function App() {
 
-  const {authUser,checkAuth,isCheckingAuth,isSigningIn,isSigningUp,isUpdatingProfile} = useAuthStore();
+  const {authUser,checkAuth,isCheckingAuth,isSigningIn,isSigningUp,isUpdatingProfile}:any = useAuthStore();
 
   useEffect(()=>{
     checkAuth();

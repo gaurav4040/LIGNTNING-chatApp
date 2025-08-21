@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { useAuthStore } from "@/store/useAuthStore";
@@ -9,7 +10,7 @@ import { useState } from "react";
 
 const Signin = () => {
 
-  const {signin} = useAuthStore();
+  const signin = useAuthStore((state: any) => state.signin);
   const navigate = useNavigate();
 
   const [formData,setFormData] = useState({
@@ -26,7 +27,8 @@ const Signin = () => {
     return true;
   }
 
-  const handleSubmit=(event)=>{
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSubmit=(event:any)=>{
     event.preventDefault();
     const success=validateForm();
 

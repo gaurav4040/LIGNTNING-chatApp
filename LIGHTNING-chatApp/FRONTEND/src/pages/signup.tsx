@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { useState } from "react";
@@ -18,7 +19,7 @@ const Signup = () => {
       password:""
     });
     const navigate = useNavigate();
-    const {signup} = useAuthStore();
+    const signup = useAuthStore((state: any) => state.signup);
 
     const validateForm=()=>{
       if(!formData.fullName.trim()) return toast.error("Full Name required");
@@ -29,10 +30,10 @@ const Signup = () => {
       
       return true;
     }
-    const handleSubmit=(event)=>{
+    const handleSubmit=(event:any)=>{
         event.preventDefault();
         const success = validateForm();
-        if(success===true) signup(formData,navigate)  
+        if(success===true){ signup(formData,navigate);console.log(formData) } 
     }
 
   return (

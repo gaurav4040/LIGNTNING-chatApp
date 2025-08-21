@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Card } from "../componentsUI/ui/card-hero";
 import { Spotlight } from "../componentsUI/ui/spotlight-hero";
@@ -8,10 +9,10 @@ import toast from "react-hot-toast";
 const ProfilePage = () => {
     const navigate = useNavigate();
     
-  const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
-  const [selectedImg,setSelectedImg] = useState(null);
+  const { authUser, isUpdatingProfile, updateProfile }:any = useAuthStore();
+  const [selectedImg,setSelectedImg] = useState<string|null|ArrayBuffer>(null);
     
-  const handleInputUpload = async (e) => {
+  const handleInputUpload = async (e:any) => {
     const file = e.target.files[0];
     if(!file) return 
 
@@ -65,6 +66,7 @@ const ProfilePage = () => {
                         accept="image/*"
                         onChange={handleInputUpload}
                         disabled={isUpdatingProfile}
+                        title="upload profile picture"
                     />
                     </label>
                 </div>

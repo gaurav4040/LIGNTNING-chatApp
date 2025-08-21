@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useChatStore } from "@/store/useChatStore";
 import { Card } from "../componentsUI/ui/card-hero";
 import { Spotlight } from "../componentsUI/ui/spotlight-hero";
@@ -6,7 +7,7 @@ import NoChatSelected from "@/componentsUI/noChatSelected";
 import ChatContainer from "@/componentsUI/ChatContainer";
 
 const HomePage=()=>{
-    const {selectedUser} = useChatStore();
+    const {selectedUser}:any = useChatStore();
     return(
         <Card className="w-[100vw] h-[100vh] bg-black/[0.96] relative overflow-hidden">
       <Spotlight className="-top-40 opacity-15 left-0 md:left-60 md:-top-20" />

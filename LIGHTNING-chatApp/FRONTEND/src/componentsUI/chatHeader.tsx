@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import  {X}  from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
+import { Button } from "./ui/button-header";
 
 const ChatHeader = () => {
-  const { selectedUser, setSelectedUser } = useChatStore();
-  const { onlineUsers } = useAuthStore();
+  const { selectedUser, setSelectedUser }:any = useChatStore();
+  const { onlineUsers }:any = useAuthStore();
 
   return (
     
@@ -28,9 +30,9 @@ const ChatHeader = () => {
         </div>
 
         {/* Close button */}
-        <button className="text-white bg-white/10 scale-75" onClick={() => setSelectedUser(null)}>
+        <Button className="text-white bg-white/10 scale-75" onClick={() => setSelectedUser(null)}>
           <X />
-        </button>
+        </Button>
       </div>
     </div>
   );

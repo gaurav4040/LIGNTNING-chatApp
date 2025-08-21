@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { Image, Send, X } from "lucide-react";
@@ -5,11 +6,11 @@ import toast from "react-hot-toast";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState<string|ArrayBuffer|null>(null);
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e:any) => {
     const file = e.target.files[0];
     if (!file.type.startsWith("image/")) {
       toast.error("Please select an image file");
@@ -18,7 +19,6 @@ const MessageInput = () => {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      console.log("Image base64:", reader.result.slice(0, 100));
       setImagePreview(reader.result);
     };
     reader.readAsDataURL(file);
@@ -26,10 +26,12 @@ const MessageInput = () => {
 
   const removeImage = () => {
     setImagePreview(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (fileInputRef.current && "value" in fileInputRef.current) {
+      (fileInputRef.current as HTMLInputElement).value = "";
+    }
   };
 
-  const handleSendMessage = async (e) => {
+  const handleSendMessage = async (e:any) => {
     e.preventDefault();
     if (!text.trim() && !imagePreview) return;
 
@@ -42,7 +44,7 @@ const MessageInput = () => {
       // Clear form
       setText("");
       setImagePreview(null);
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      if (fileInputRef.current) (fileInputRef.current as HTMLInputElement).value = "";
     } catch (error) {
       console.error("Failed to send message:", error);
     }
@@ -54,11 +56,12 @@ const MessageInput = () => {
         <div className="mb-3 flex items-center gap-2">
           <div className="relative">
             <img
-              src={imagePreview}
+              src={typeof imagePreview === "string" ? imagePreview : undefined}
               alt="Preview"
               className="w-20 h-20 object-cover rounded-lg border border-zinc-700"
             />
             <button
+              title="Remove image"
               onClick={removeImage}
               className="absolute -top-1.5 -right-1.5 text-white  w-5 h-5 rounded-full bg-neutral-900/90
               "
@@ -80,6 +83,7 @@ const MessageInput = () => {
             onChange={(e) => setText(e.target.value)}
           />
           <input
+            title="upload file"
             type="file"
             accept="image/*"
             className="hidden"
@@ -88,15 +92,20 @@ const MessageInput = () => {
           />
 
           <button
+          title="button"
             type="button"
-            className={`hidden sm:flex  btn btn-circle
+            className={`hidden sm:flex btn btn-circle
                      ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => {
+              const input = fileInputRef.current as HTMLInputElement | null;
+              input?.click();
+            }}
           >
             <Image size={20} />
           </button>
         </div>
         <button
+        title="send"
           type="submit"
           className="btn btn-sm btn-circle"
           disabled={!text.trim() && !imagePreview}

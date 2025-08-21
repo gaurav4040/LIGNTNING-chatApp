@@ -21,8 +21,6 @@ export function SplineSceneBasic() {
       src: "/ss2.webp",
       alt: "Secure Conversations",
       text: "End-to-end encryption ensures that your messages are private, secure, and only accessible to intended recipients.",
-      alt: "Streamlined Interface",
-      text: "An elegant, user-friendly interface that allows you to focus on what matters: the conversation.",
     },
   ];
 

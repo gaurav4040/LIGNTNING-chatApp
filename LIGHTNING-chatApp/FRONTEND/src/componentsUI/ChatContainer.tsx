@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useChatStore } from "../store/useChatStore";
 import { useEffect, useRef } from "react";
 
@@ -15,10 +16,10 @@ const ChatContainer = () => {
     selectedUser,
     subscribeToMessages,
     unsubscribeFromMessages,
-  } = useChatStore();
+  }:any = useChatStore();
   console.log(`selected user is`,selectedUser);
   
-  const { authUser } = useAuthStore();
+  const { authUser }:any = useAuthStore();
   const messageEndRef = useRef(null);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const ChatContainer = () => {
 
   useEffect(() => {
     if (messageEndRef.current && messages) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+      (messageEndRef.current as HTMLDivElement | null)?.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
@@ -50,7 +51,7 @@ const ChatContainer = () => {
       <ChatHeader />
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
+        {messages.map(({message}:any) => (
           <div
             key={message._id}
             className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}

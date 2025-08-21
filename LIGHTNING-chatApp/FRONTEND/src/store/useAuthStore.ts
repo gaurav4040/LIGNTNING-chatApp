@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { axiosInstance } from '@/lib/axios'
 import toast from 'react-hot-toast';
 import  {useNavigate}  from 'react-router-dom';
 import { io } from 'socket.io-client';
 
-import {create} from 'zustand'
+import { create } from 'zustand'
 
-
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "/";
+const BASE_URL =
+  typeof process !== "undefined" && process.env && process.env.NODE_ENV === "development"
+    ? "http://localhost:5170"
+    : "/";
 
 interface userData{
     fullName:string,
@@ -21,7 +24,9 @@ interface signinData{
 interface profileData{
     profilePic:string | ArrayBuffer | null,
 } 
-  export const useAuthStore = create((set,get)=>({
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export const useAuthStore = create<any>((set,get:any)=>({
     
       authUser:null,
       isSigningUp:false,
@@ -31,7 +36,7 @@ interface profileData{
       onlineUsers:[],
       socket: null,
       
-    checkAuth:async ():Promise<void>=>{
+    checkAuth:async ():Promise<any>=>{
           try {
               const res = await axiosInstance.get("/auth/check");
               
@@ -46,7 +51,7 @@ interface profileData{
             }
         },
         
-    signup:async (data:userData, navigate: ReturnType<typeof useNavigate>)=>{
+    signup:async (data:userData, navigate: ReturnType<typeof useNavigate>):Promise<any>=>{
         set({isSigningUp:true});
         try {
             const res = await axiosInstance.post("/auth/signup",data);
@@ -54,22 +59,22 @@ interface profileData{
             toast.success("Account created successfully");
             get().connectSocket();
             navigate("/home")
-        } catch (err) {
+        } catch (err:any) {
             toast.error(err.response.data.message);
         }finally{
             set({isSigningUp:false});
         }
     },
     
-    signin:async (data:signinData,navigate:ReturnType<typeof useNavigate>)=>{
+    signin:async (data:signinData,navigate:ReturnType<typeof useNavigate>):Promise<any>=>{
         set({isSigningIn:true})
         try {
-            const res = await axiosInstance.post("auth/signin",data);
+            const res = await axiosInstance.post("/auth/signin",data);
             set({authUser:res.data});
             toast.success("signed In successfully");
             get().connectSocket();
             navigate("/home");
-        } catch (error) {
+        } catch (error:any) {
             toast.error(error.response.data.message);
         }finally{
             set({isSigningIn:false})
@@ -83,7 +88,7 @@ interface profileData{
             set({authUser:null});
             toast.success("signed Out successfully")
             get().disconnectSocket();
-        } catch (error) {
+        } catch (error:any) {
             toast.error(error.response.data.message);
         }
     },
@@ -95,7 +100,7 @@ interface profileData{
             set({authUser:res.data});
             toast.success("Profile updated successfully");
             navigate("/profile");
-         } catch (error) {
+         } catch (error:any) {
             toast.error(error.response.data.message);
          }finally{
             set({isUpdatingProfile:false});

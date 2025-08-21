@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
@@ -6,9 +7,9 @@ import { Users } from "lucide-react";
 
 
 const Sidebar = () => {
-  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
+  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading }:any = useChatStore();
 
-  const { onlineUsers } = useAuthStore();
+  const { onlineUsers }:any = useAuthStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const Sidebar = () => {
   }, [getUsers]);
 
   const filteredUsers = showOnlineOnly
-    ? users.filter((user) => onlineUsers.includes(user._id))
+    ? users.filter(({user}:any) => onlineUsers.includes(user._id))
     : users;
 
   if (isUsersLoading) return <SidebarSkeleton />;
@@ -39,12 +40,12 @@ const Sidebar = () => {
             />
             <span className="text-sm text-white">Show online only</span>
           </label>
-          <span className="text-xs text-zinc-500">({onlineUsers.length -1} online)</span>
+          <span className="text-xs text-zinc-500">({onlineUsers.length>0?onlineUsers.length -1:0} online)</span>
         </div>
       </div>
 
       <div className="overflow-y-auto w-full py-3">
-        {filteredUsers.map((user) => (
+        {filteredUsers.map(({user}:any) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
