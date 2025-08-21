@@ -7,9 +7,9 @@ import { io } from 'socket.io-client';
 import { create } from 'zustand'
 
 const BASE_URL =
-  typeof process !== "undefined" && process.env.NODE_ENV === "development"
+  typeof process !== "undefined" && process.env && process.env.NODE_ENV === "development"
     ? "http://localhost:5170"
-    : process.env.SERVER_URL;
+    : `${process.env.BASE_URL}/`;
 
 interface userData{
     fullName:string,
