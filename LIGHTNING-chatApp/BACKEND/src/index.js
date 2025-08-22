@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
     origin:"https://ligntning-app.vercel.app",
+    methods:["GET","POST","PUT","DELETE"],
     credentials:true
 }));
 
