@@ -6,7 +6,10 @@ import dotenv from 'dotenv';
 import { connectDB } from './lib/DB.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { app } from './lib/socket.js';
+
+
+const app = express();
+const server = http.createServer(app);
 
 dotenv.config();
 const PORT = process.env.PORT||3000;
@@ -30,6 +33,6 @@ app.use("/api", (req, res) => {
 
     connectDB()
 
-
+export {app,server};
 
   

@@ -2,12 +2,11 @@ import { Server } from "socket.io";
 import http from "http";
 import express from "express";
 
-const app = express();
-const server = http.createServer(app);
+import { server } from '../index.js';
 
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173"],
+    origin: ["https://ligntning-app.vercel.app"],
   },
 });
 
@@ -34,4 +33,4 @@ io.on("connection", (socket) => {
   });
 });
 
-export { io, app, server };
+export { io };
