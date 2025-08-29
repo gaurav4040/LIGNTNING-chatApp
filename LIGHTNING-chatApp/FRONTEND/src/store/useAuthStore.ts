@@ -9,7 +9,7 @@ import { create } from 'zustand'
 const BASE_URL =
   typeof process !== "undefined" && process.env && process.env.NODE_ENV === "development"
     ? "http://localhost:5170"
-    : "https://ligntning-chat-app-server.vercel.app/"
+    : "http://ligntning-chatapp.ap-south-1.elasticbeanstalk.com/api"
 
 interface userData{
     fullName:string,
