@@ -9,7 +9,7 @@ import { create } from 'zustand'
 const BASE_URL =
   typeof process !== "undefined" && process.env && process.env.NODE_ENV === "development"
     ? "http://localhost:5170"
-    : "http://ligntning-chatapp.ap-south-1.elasticbeanstalk.com/api"
+    : "/"
 
 interface userData{
     fullName:string,
@@ -26,7 +26,7 @@ interface profileData{
 } 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export const useAuthStore = create<any>((set,get:any)=>({
+  export const  useAuthStore = create<any>((set,get:any)=>({
     
       authUser:null,
       isSigningUp:false,
@@ -112,6 +112,7 @@ interface profileData{
         if (!authUser || get().socket?.connected) return;
     
         const socket = io(BASE_URL, {
+
           query: {
             userId: authUser._id,
           },
