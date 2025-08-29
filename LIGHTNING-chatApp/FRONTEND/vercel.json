@@ -3,6 +3,10 @@
     {
       "source": "/api/(.*)",
       "destination": "http://ligntning-chatapp.ap-south-1.elasticbeanstalk.com/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
