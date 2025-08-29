@@ -31,8 +31,9 @@ app.use("/api", (req, res) => {
   });
 
 
-    connectDB()
+  connectDB()
 
-export {app,server};
+export default app;
+export {server};
 
   

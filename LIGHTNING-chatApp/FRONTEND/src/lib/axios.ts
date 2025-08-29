@@ -2,6 +2,6 @@ import axios from 'axios'
 
 export const axiosInstance = axios.create({
 
-    baseURL:"https://ligntning-chat-app-server.vercel.app/api",
+    baseURL:"http://ligntning-chatapp.ap-south-1.elasticbeanstalk.com/api",
     withCredentials:true,
 })
