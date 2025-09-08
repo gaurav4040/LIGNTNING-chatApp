@@ -19,8 +19,7 @@ LIGHTNING offers:
 
 - ✅ Real-Time Messaging with Socket.IO  
 - 🔐 User Authentication (Register & Login)  
-- 💬 Multiple Chat Rooms  
-- ✍️ Typing Indicators  
+- 💬 Multiple users 
 - 📱 Responsive Design  
 
 ---
